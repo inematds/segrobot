@@ -1,487 +1,256 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>segROBOT · Curso Completo — 3 Trilhas</title>
 <meta name="description" content="18 módulos sobre requalificação humana para ambientes robotizados. Fundamentos, Ação e Estratégia.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config = { darkMode:'class', theme:{ extend:{ colors:{ ink:'#0b0f14', panel:'#11161d', line:'#1f2937' } } } }</script>
-<style>
-  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  .grid-bg {
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(239,68,68,.08), transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(56,189,248,.08), transparent 40%),
-      linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
-    background-size: auto, auto, 42px 42px, 42px 42px;
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        dark: { 600:'#4b5563', 700:'#374151', 800:'#1f2937', 900:'#111827' },
+        primary: '#FACC15'
+      }
+    }
   }
-  details summary { cursor: pointer; list-style: none; }
-  details summary::-webkit-details-marker { display: none; }
-  details[open] summary .arrow { transform: rotate(90deg); }
-  .arrow { transition: transform .2s; }
-  .module-card { transition: border-color .2s, box-shadow .2s; }
-  .module-card:hover { border-color: rgba(239,68,68,.3); box-shadow: 0 10px 40px -15px rgba(239,68,68,.2); }
+}
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; }
+
+  .dark .border-dark-600 { border-color: #374151; }
+  .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+  /* ── LIGHT MODE ── */
+  html:not(.dark) body { background-color: #f8fafc; color: #111827; }
+  html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+  html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+  html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+  html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+  html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+  html:not(.dark) .text-neutral-100 { color: #111827; }
+  html:not(.dark) .text-neutral-300 { color: #4b5563; }
+  html:not(.dark) .text-neutral-400 { color: #6b7280; }
+  html:not(.dark) .text-gray-100 { color: #111827; }
+  html:not(.dark) .text-gray-300 { color: #374151; }
+  html:not(.dark) .text-gray-400 { color: #6b7280; }
+  html:not(.dark) .text-gray-500 { color: #9ca3af; }
+
+  html:not(.dark) .text-emerald-400 { color: #059669; }
+  html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5,150,105,0.08); }
+  html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5,150,105,0.25); }
+  html:not(.dark) .text-blue-400 { color: #2563eb; }
+  html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37,99,235,0.08); }
+  html:not(.dark) .border-blue-500\/30 { border-color: rgba(37,99,235,0.25); }
+  html:not(.dark) .text-purple-400 { color: #7c3aed; }
+  html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124,58,237,0.08); }
+  html:not(.dark) .border-purple-500\/30 { border-color: rgba(124,58,237,0.25); }
+
+  html:not(.dark) .text-sky-400 { color: #0369a1; }
+  html:not(.dark) .text-red-400 { color: #dc2626; }
+  html:not(.dark) .text-yellow-400 { color: #a16207; }
+  html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+  html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+  html:not(.dark) nav { background-color: rgba(255,255,255,0.9) !important; border-color: #e5e7eb !important; }
 </style>
 </head>
-<body class="bg-ink text-gray-100 dark">
+<body class="bg-dark-900 text-gray-100">
 
 <!-- NAV -->
-<nav class="sticky top-0 z-40 backdrop-blur bg-ink/80 border-b border-line">
+<nav class="sticky top-0 z-40 backdrop-blur bg-dark-900/95 border-b border-dark-600">
   <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
     <a href="../" class="flex items-center gap-2 font-bold shrink-0">
       <span class="w-8 h-8 rounded-lg bg-red-500 text-white grid place-items-center text-sm">🤖</span>
       seg<span class="text-red-400">ROBOT</span>
     </a>
-    <div class="flex items-center gap-1 text-sm">
-      <a href="#t1" class="px-3 py-2 rounded hover:bg-white/5 text-red-400">Fundamentos</a>
-      <a href="#t2" class="px-3 py-2 rounded hover:bg-white/5 text-sky-400">Ação</a>
-      <a href="#t3" class="px-3 py-2 rounded hover:bg-white/5 text-purple-400">Estratégico</a>
-      <a href="https://inema.club" target="_blank" class="px-3 py-2 rounded text-gray-500 hover:text-white">INEMA ↗</a>
+    <div class="flex items-center gap-1 text-sm flex-wrap justify-end">
+      <a href="trilha1/" class="px-3 py-2 rounded text-emerald-400 hover:bg-emerald-500/10">Fundamentos</a>
+      <a href="trilha2/" class="px-3 py-2 rounded text-blue-400 hover:bg-blue-500/10">Ação</a>
+      <a href="trilha3/" class="px-3 py-2 rounded text-purple-400 hover:bg-purple-500/10">Estratégico</a>
+      <span class="text-gray-500 mx-1">|</span>
+      <a href="https://inema.club" target="_blank" rel="noopener" class="text-sky-400 hover:text-sky-300 text-sm font-medium px-2">INEMA.CLUB</a>
+      <button onclick="document.documentElement.classList.toggle('dark');localStorage.setItem('theme',document.documentElement.classList.contains('dark')?'dark':'light')" class="ml-2 w-9 h-9 rounded-lg border border-dark-600 hover:bg-dark-700 flex items-center justify-center text-sm" aria-label="Alternar tema">
+        <span class="dark:hidden">🌙</span><span class="hidden dark:inline">☀️</span>
+      </button>
     </div>
   </div>
 </nav>
 
 <!-- HEADER -->
-<header class="grid-bg border-b border-line py-16">
+<header class="border-b border-dark-600 py-16 bg-gradient-to-b from-dark-800 to-dark-900">
   <div class="max-w-4xl mx-auto px-6 text-center">
     <h1 class="text-3xl md:text-5xl font-bold">Curso <span class="text-red-400">segROBOT</span></h1>
     <p class="mt-4 text-gray-400 text-lg">Requalificação Humana para Ambientes Robotizados</p>
-    <p class="mt-2 text-gray-500">3 trilhas · 18 módulos · ~8 horas · baseado em pesquisa com 50+ fontes</p>
+    <p class="mt-2 text-gray-500">3 trilhas · 18 módulos · ~8 horas · 50+ fontes</p>
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- TRILHA 1 — FUNDAMENTOS -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<section id="t1" class="py-16 border-b border-line">
+<!-- MAPA DAS TRILHAS -->
+<section class="py-16 border-b border-dark-600">
   <div class="max-w-4xl mx-auto px-6">
-    <div class="flex items-center gap-3 mb-2">
-      <span class="text-2xl">📐</span>
-      <h2 class="text-2xl font-bold text-red-400">Trilha 1 — Fundamentos</h2>
+    <h2 class="text-2xl font-bold mb-6">Mapa das trilhas</h2>
+    <div class="grid md:grid-cols-3 gap-4">
+      <a href="trilha1/" class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-emerald-500/50 transition-colors block">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-emerald-400 font-bold text-sm">T1</span>
+          <span class="text-gray-500 text-xs">~2.5h</span>
+        </div>
+        <h3 class="font-bold text-emerald-400">📐 Fundamentos</h3>
+        <p class="text-gray-400 text-xs mt-1">Cenário, normas, psicologia</p>
+      </a>
+      <a href="trilha2/" class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-colors block">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-blue-400 font-bold text-sm">T2</span>
+          <span class="text-gray-500 text-xs">~3h</span>
+        </div>
+        <h3 class="font-bold text-blue-400">⚡ Ação</h3>
+        <p class="text-gray-400 text-xs mt-1">Supervisão, segurança, verticais</p>
+      </a>
+      <a href="trilha3/" class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-purple-500/50 transition-colors block">
+        <div class="flex justify-between items-center mb-2">
+          <span class="text-purple-400 font-bold text-sm">T3</span>
+          <span class="text-gray-500 text-xs">~2.5h</span>
+        </div>
+        <h3 class="font-bold text-purple-400">🎯 Estratégico</h3>
+        <p class="text-gray-400 text-xs mt-1">Gestão, certificações, negócio</p>
+      </a>
     </div>
-    <p class="text-gray-400 mb-8">Entenda o cenário, os números, as normas e a psicologia por trás da transição homem-máquina.</p>
-
-    <!-- M1 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4" open>
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-1 rounded">M1</span>
-        <span class="font-semibold">O Grande Cenário: Robôs, Empregos e Requalificação</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Compreender a escala da transformação e por que requalificação é mais urgente que automação.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>WEF 2025: +170M empregos, -92M deslocados, saldo +78M</li>
-          <li>70% dos fracassos são humanos, não técnicos (BCG 2024)</li>
-          <li>O paradoxo: mais robôs = mais empregos, mas diferentes</li>
-          <li>Mapa global de densidade robótica (IFR): Coreia 1.012, Japão 399, Alemanha 397, Brasil 18</li>
-          <li>Novos cargos emergentes: Robot Fleet Coordinator, Exception Handler, AI Training Associate</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: WEF Future of Jobs 2025, IFR World Robotics 2024, BCG AI Report 2024</p>
-      </div>
-    </details>
-
-    <!-- M2 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-1 rounded">M2</span>
-        <span class="font-semibold">Cobots, AMRs e Humanoides: Taxonomia de Robôs no Trabalho</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Classificar os tipos de robôs que entram em operações e entender o impacto de cada um.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Cobots (UR, FANUC CRX, ABB GoFa): trabalham ao lado do humano</li>
-          <li>AMRs (Amazon Proteus, Locus, 6 River): navegação autônoma em armazéns/hospitais</li>
-          <li>Humanoides (Figure 02, Digit, UBTECH Walker S2): fábricas BMW, GXO, BYD</li>
-          <li>Robôs de serviço: desinfecção UV, farm bots, K5 segurança</li>
-          <li>Mercado: cobots USD 1.4-3.4 bi (2025), projeção USD 7-32 bi (2030)</li>
-          <li>Amazon: 1 milhão de robôs operando (julho 2025)</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: MarketsandMarkets, IFR, CNBC, Bain Humanoid Report 2025</p>
-      </div>
-    </details>
-
-    <!-- M3 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-1 rounded">M3</span>
-        <span class="font-semibold">ISO 10218:2025 — A Nova Era da Segurança HRC</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Dominar as mudanças da ISO 10218:2025 e suas implicações para treinamento.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Primeira revisão desde 2011 — mudança conceitual profunda</li>
-          <li>"Robô colaborativo" eliminado: colaboração é aplicação, não categoria</li>
-          <li>ISO/TS 15066 absorvida no 10218 — norma unificada</li>
-          <li>Classes I e II: requisitos diferentes de validação</li>
-          <li>PFL (Power/Force Limiting), SSM (Speed/Separation Monitoring)</li>
-          <li>Cibersegurança como requisito de segurança física</li>
-          <li>Impacto: muitos "cobots seguros" agora precisam de revalidação</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: ISO 10218:2025, Automate.org FAQ, Cobots Online</p>
-      </div>
-    </details>
-
-    <!-- M4 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-1 rounded">M4</span>
-        <span class="font-semibold">Psicologia da Resistência: Por Que Humanos Rejeitam Robôs</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Entender os mecanismos psicológicos da resistência e como endereçá-los.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Amígdala e resposta fight-or-flight a incerteza</li>
-          <li>Tecnostresse: violação de contrato psicológico percebida</li>
-          <li>APA: insegurança por robôs leva a comportamentos mal-adaptativos (sabotagem, evitação, somatização)</li>
-          <li>O ciclo: medo → incompetência percebida → resistência → profecia auto-realizável</li>
-          <li>Brookings: segurança física e psicológica devem ser tratadas juntas</li>
-          <li>Confiança calibrada: o risco de confiar demais vs. de menos</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: PMC/NIH 2024, APA, Brookings, arxiv 2024</p>
-      </div>
-    </details>
-
-    <!-- M5 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-1 rounded">M5</span>
-        <span class="font-semibold">Brasil 2026: Diagnóstico e Oportunidade</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Mapear o cenário brasileiro de robotização e os gaps de requalificação.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>18 robôs/10k trabalhadores — gap de 8x vs. média global</li>
-          <li>Crescimento de 52% em 2025 (mais rápido da região)</li>
-          <li>SENAI: 23 ISIs, 100k profissionais/ano, parceria Universal Robots</li>
-          <li>Robotec Maker 4.0: formando jovens desde 14 anos</li>
-          <li>O que falta: supervisão de autônomos, gestão de mudança, certificações ISO 2025, conteúdo por vertical</li>
-          <li>Tarifas de importação: dobram o custo de um braço robótico</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: IFR, SENAI, Universal Robots Blog, State of Robotics Brazil 2026</p>
-      </div>
-    </details>
-
-    <!-- M6 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-red-500/10 text-red-400 text-xs font-bold px-2 py-1 rounded">M6</span>
-        <span class="font-semibold">Programas de Referência Mundial</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Conhecer os modelos de excelência em requalificação para robotização.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Amazon Upskilling 2025: USD 1.2 bi, 700k funcionários treinados</li>
-          <li>Modelo alemão: 4 anos, Ausbildung Industry 4.0, 3.800 EUR/mês</li>
-          <li>Apprenticeship 2000 (Charlotte, NC): 8.000 horas em mecatrônica</li>
-          <li>ABB (20k/ano), FANUC (NOCTI), KUKA (70 módulos), RoboDK Academy (grátis)</li>
-          <li>CMU Robotics Academy: parceria com escolas e workforce boards</li>
-          <li>Siemens Industrial Copilot: transferência de conhecimento de 2.5M aposentados</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: Amazon, ABB, FANUC, CMU, Siemens, RoboDK</p>
-      </div>
-    </details>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- TRILHA 2 — AÇÃO -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<section id="t2" class="py-16 border-b border-line">
+<!-- TRILHA 1 RESUMO -->
+<section id="t1" class="py-12 border-b border-dark-600">
   <div class="max-w-4xl mx-auto px-6">
-    <div class="flex items-center gap-3 mb-2">
-      <span class="text-2xl">⚡</span>
-      <h2 class="text-2xl font-bold text-sky-400">Trilha 2 — Ação</h2>
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">📐</span>
+        <h2 class="text-2xl font-bold text-emerald-400">Trilha 1 — Fundamentos</h2>
+      </div>
+      <a href="trilha1/" class="text-emerald-400 text-sm hover:underline">Ver trilha completa →</a>
     </div>
-    <p class="text-gray-400 mb-8">Implementação prática: supervisão, segurança, simulação e treinamento por função.</p>
-
-    <!-- M7 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">M7</span>
-        <span class="font-semibold">Supervisão de Sistemas Autônomos: Ensinar Julgamento</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Desenvolver competências de supervisão: quando confiar, quando interromper, como interpretar exceções.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Competências técnicas: dashboards de telemetria, padrões de falha, envelope operacional</li>
-          <li>Competências cognitivas: calibração de confiança, consciência situacional, tolerância a ambiguidade</li>
-          <li>Protocolos de escalada: quando chamar engenheiro, quando parar a linha</li>
-          <li>O risco #1: complacência de automação (confiar demais)</li>
-          <li>Framework OHRCS (MERL Research 2024)</li>
-          <li>NSF: mapeamento de competências essenciais para HRC por indústria</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: arxiv 2024, NSF, MERL Research, ASCE 2024</p>
-      </div>
-    </details>
-
-    <!-- M8 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">M8</span>
-        <span class="font-semibold">Protocolos de Segurança Humano-Robô</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Projetar e executar programas de segurança HRC alinhados com ISO 10218:2025.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Avaliação de risco pré-comissionamento (obrigatória por norma)</li>
-          <li>Validação física de forças de contato: medição real, não teórica</li>
-          <li>Modos: SSM, PFL, colaborativo vs. industrial</li>
-          <li>LOTO adaptado para robôs</li>
-          <li>Resposta a incidentes: sequência de ações quando robô toca trabalhador</li>
-          <li>Near-miss reporting: cultura de registro de quase-acidentes</li>
-          <li>Simulação de comportamento humano errático (Springer 2024)</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: ISO 10218:2025, Machine Safety Specialists, IBF Solutions</p>
-      </div>
-    </details>
-
-    <!-- M9 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">M9</span>
-        <span class="font-semibold">Simuladores, VR e Digital Twins para Treinamento</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Implementar ambientes imersivos para treinar antes do risco real.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Digital twin automotivo: USD 2.1 bi (2024) → USD 28.7 bi (2034), CAGR 30%</li>
-          <li>VR reduz tempo de execução em 38% vs. treinamento tradicional</li>
-          <li>Virginia Tech 2025: digital twins + VR para operadores de utilities</li>
-          <li>Monitoramento fisiológico em VR: batimentos, postura, movimento ocular (PMC/NIH 2025)</li>
-          <li>Cenários de evacuação de emergência com robôs</li>
-          <li>Plataformas: Siemens Xcelerator, PTC Vuforia, Scope AR, RoboDK</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: Virginia Tech, arxiv 2024, PMC/NIH, Siemens</p>
-      </div>
-    </details>
-
-    <!-- M10 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">M10</span>
-        <span class="font-semibold">Saúde: Enfermeiros e Equipes Hospitalares com Robôs</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Treinar equipes de saúde para operar com AMRs, robôs de desinfecção e assistentes.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Mercado: USD 16 bi (2024) → USD 45+ bi (2030)</li>
-          <li>AMRs hospitalares: medicamentos, instrumentos estéreis, resíduos</li>
-          <li>78% das enfermeiras reportam melhora de fluxo com AMRs</li>
-          <li>O que aprender: navegação do robô, como chamar/cancelar, quando não confiar</li>
-          <li>Robô que ajusta trajetória por urgência da equipe (Science Robotics 2023)</li>
-          <li>Projeto EU HARMONY: coordenação multi-robôs em corredores</li>
-          <li>Protocolo de falha no meio de entrega crítica</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: Arizton 2024, Science Robotics, EU HARMONY</p>
-      </div>
-    </details>
-
-    <!-- M11 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">M11</span>
-        <span class="font-semibold">Logística: Armazéns Autônomos e Frotas de AMR</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Preparar operadores para o modelo Amazon/GXO de armazém com frota autônoma.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Amazon: 1M robôs, sistema DeepFleet de IA coordenando toda a frota</li>
-          <li>Antes: pick-and-pack. Depois: supervisar frota, resolver exceções, kitting</li>
-          <li>Amazon Upskilling: USD 1.2 bi, Technical Academy (9 meses), Associate2Tech (90 dias)</li>
-          <li>Novos cargos: Robot Fleet Coordinator, AMR Maintenance Technician</li>
-          <li>KPIs: System Throughput, Exception Rate, MTTR de exceções</li>
-          <li>Agility Robotics Digit no armazém GXO desde 2024</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: CNBC, FreightWaves, Amazon</p>
-      </div>
-    </details>
-
-    <!-- M12 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-sky-500/10 text-sky-400 text-xs font-bold px-2 py-1 rounded">M12</span>
-        <span class="font-semibold">Agro, Segurança e Outros Verticais</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Aplicar princípios de requalificação em agricultura de precisão, segurança patrimonial e outros setores.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li><strong>Agro:</strong> USD 14.7 bi (2024) → USD 48 bi (2030). John Deere autônomo 2ª geração. Drone + trator + sensor. Gap: idade média 58 anos</li>
-          <li><strong>Segurança:</strong> Knightscope K5, Boston Dynamics Spot. Modelo: guarda + robô como sistema</li>
-          <li>Caso NYPD: K5 removido por falha de procedimento operacional, não técnica</li>
-          <li>Spot levou tiro localizando atirador em Massachusetts (2024)</li>
-          <li>Treinamento: interpretação de alertas, protocolos legais (LGPD), coordenação em crise</li>
-          <li>Figure 02 na BMW: humanoides na linha de montagem</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: MarketsandMarkets Agri, CNN Security Robots, Werkey</p>
-      </div>
-    </details>
-
+    <div class="grid md:grid-cols-2 gap-3">
+      <a href="trilha1/#modulo-1-1" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-emerald-500/30 transition-colors block">
+        <span class="text-emerald-400 text-xs font-bold">M1.1</span>
+        <p class="font-medium mt-1">O Grande Cenário: Robôs, Empregos e Requalificação</p>
+      </a>
+      <a href="trilha1/#modulo-1-2" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-emerald-500/30 transition-colors block">
+        <span class="text-emerald-400 text-xs font-bold">M1.2</span>
+        <p class="font-medium mt-1">Cobots, AMRs e Humanoides: Taxonomia</p>
+      </a>
+      <a href="trilha1/#modulo-1-3" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-emerald-500/30 transition-colors block">
+        <span class="text-emerald-400 text-xs font-bold">M1.3</span>
+        <p class="font-medium mt-1">ISO 10218:2025 — A Nova Era da Segurança HRC</p>
+      </a>
+      <a href="trilha1/#modulo-1-4" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-emerald-500/30 transition-colors block">
+        <span class="text-emerald-400 text-xs font-bold">M1.4</span>
+        <p class="font-medium mt-1">Psicologia da Resistência</p>
+      </a>
+      <a href="trilha1/#modulo-1-5" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-emerald-500/30 transition-colors block">
+        <span class="text-emerald-400 text-xs font-bold">M1.5</span>
+        <p class="font-medium mt-1">Brasil 2026: Diagnóstico e Oportunidade</p>
+      </a>
+      <a href="trilha1/#modulo-1-6" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-emerald-500/30 transition-colors block">
+        <span class="text-emerald-400 text-xs font-bold">M1.6</span>
+        <p class="font-medium mt-1">Programas de Referência Mundial</p>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<!-- TRILHA 3 — ESTRATÉGICO -->
-<!-- ═══════════════════════════════════════════════════════════════════ -->
-<section id="t3" class="py-16 border-b border-line">
+<!-- TRILHA 2 RESUMO -->
+<section id="t2" class="py-12 border-b border-dark-600">
   <div class="max-w-4xl mx-auto px-6">
-    <div class="flex items-center gap-3 mb-2">
-      <span class="text-2xl">🎯</span>
-      <h2 class="text-2xl font-bold text-purple-400">Trilha 3 — Estratégico</h2>
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">⚡</span>
+        <h2 class="text-2xl font-bold text-blue-400">Trilha 2 — Ação</h2>
+      </div>
+      <a href="trilha2/" class="text-blue-400 text-sm hover:underline">Ver trilha completa →</a>
     </div>
-    <p class="text-gray-400 mb-8">Liderança, modelo de negócio, gestão da mudança e formação de formadores.</p>
+    <div class="grid md:grid-cols-2 gap-3">
+      <a href="trilha2/#modulo-2-1" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-blue-500/30 transition-colors block">
+        <span class="text-blue-400 text-xs font-bold">M2.1</span>
+        <p class="font-medium mt-1">Supervisão de Sistemas Autônomos</p>
+      </a>
+      <a href="trilha2/#modulo-2-2" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-blue-500/30 transition-colors block">
+        <span class="text-blue-400 text-xs font-bold">M2.2</span>
+        <p class="font-medium mt-1">Protocolos de Segurança Humano-Robô</p>
+      </a>
+      <a href="trilha2/#modulo-2-3" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-blue-500/30 transition-colors block">
+        <span class="text-blue-400 text-xs font-bold">M2.3</span>
+        <p class="font-medium mt-1">Simuladores, VR e Digital Twins</p>
+      </a>
+      <a href="trilha2/#modulo-2-4" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-blue-500/30 transition-colors block">
+        <span class="text-blue-400 text-xs font-bold">M2.4</span>
+        <p class="font-medium mt-1">Saúde: Equipes Hospitalares com Robôs</p>
+      </a>
+      <a href="trilha2/#modulo-2-5" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-blue-500/30 transition-colors block">
+        <span class="text-blue-400 text-xs font-bold">M2.5</span>
+        <p class="font-medium mt-1">Logística: Armazéns Autônomos</p>
+      </a>
+      <a href="trilha2/#modulo-2-6" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-blue-500/30 transition-colors block">
+        <span class="text-blue-400 text-xs font-bold">M2.6</span>
+        <p class="font-medium mt-1">Agro, Segurança e Outros Verticais</p>
+      </a>
+    </div>
+  </div>
+</section>
 
-    <!-- M13 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-purple-500/10 text-purple-400 text-xs font-bold px-2 py-1 rounded">M13</span>
-        <span class="font-semibold">Gestão da Mudança: Framework para Adoção de Robôs</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Conduzir a absorção organizacional de robôs sem caos, resistência ou perda de produtividade.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li><strong>Fase 1 (6-12 meses antes):</strong> comunicação transparente, co-design, mapeamento de medos por função, treinar líderes primeiro</li>
-          <li><strong>Fase 2 (Piloto):</strong> voluntários, checkpoints de feedback, métricas transparentes, canal seguro para problemas</li>
-          <li><strong>Fase 3 (Escala):</strong> reconhecimento de early adopters, revisar KPIs, atualizar cargos, programa de mentoria</li>
-          <li>33% falham por falta de suporte da liderança</li>
-          <li>39% falham por resistência dos colaboradores</li>
-          <li>Apenas 14% alinham força de trabalho + tecnologia + objetivos</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: Daniel Lock 2024, BCG, TechClass, PMC/NIH</p>
+<!-- TRILHA 3 RESUMO -->
+<section id="t3" class="py-12 border-b border-dark-600">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🎯</span>
+        <h2 class="text-2xl font-bold text-purple-400">Trilha 3 — Estratégico</h2>
       </div>
-    </details>
-
-    <!-- M14 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-purple-500/10 text-purple-400 text-xs font-bold px-2 py-1 rounded">M14</span>
-        <span class="font-semibold">Métricas para Equipes Híbridas Humano-Robô</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Projetar KPIs que medem o sistema sociotécnico, não apenas humanos ou robôs isolados.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>O erro: medir UPH individual em armazém com AMRs</li>
-          <li>System Throughput vs. Individual Output</li>
-          <li>Exception Rate: intervenções humanas por hora de operação</li>
-          <li>Uptime da frota como responsabilidade do operador</li>
-          <li>MTTR (Mean Time to Resolve) de exceções</li>
-          <li>Erro zero em handoffs críticos</li>
-          <li>Framework arxiv 2025: 92.5% de precisão em reconhecimento de intenções</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: arxiv março 2025, Amazon operations research</p>
-      </div>
-    </details>
-
-    <!-- M15 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-purple-500/10 text-purple-400 text-xs font-bold px-2 py-1 rounded">M15</span>
-        <span class="font-semibold">Business Case: Vendendo Requalificação para Robótica</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Construir e apresentar o caso de negócio para programas de requalificação.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>ROI: VR reduz tempo de treinamento em 38%, reduz acidentes, acelera adoção</li>
-          <li>Custo de NÃO treinar: 70% de fracasso na transformação</li>
-          <li>Modelo de pricing: por vertical (saúde, logística, agro), por porte, por compliance</li>
-          <li>Diferencial: não é "como usar o robô X", é "como a organização absorve o robô"</li>
-          <li>Mercado endereçável: toda empresa que compra cobot precisa de treinamento</li>
-          <li>Ancoragem regulatória: ISO 10218:2025 exige treinamento documentado</li>
-        </ul>
-      </div>
-    </details>
-
-    <!-- M16 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-purple-500/10 text-purple-400 text-xs font-bold px-2 py-1 rounded">M16</span>
-        <span class="font-semibold">Certificações e Compliance</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Mapear certificações existentes e projetar novos programas de certificação.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>SME RMF (Robotics in Manufacturing Fundamentals)</li>
-          <li>OSHA 10/30 para robótica</li>
-          <li>FANUC NOCTI: parceria com faculdades</li>
-          <li>IPC, NIMS: em requisitos de vagas de robótica</li>
-          <li>O que NÃO existe: certificação de supervisão de frota, certificação de gestão HRC</li>
-          <li>Projeção: certificação será pré-requisito de contratação (como NR-12)</li>
-          <li>Oportunidade: criar a certificação para o gap</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: SME, FANUC, OSHA, Automate.org</p>
-      </div>
-    </details>
-
-    <!-- M17 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-purple-500/10 text-purple-400 text-xs font-bold px-2 py-1 rounded">M17</span>
-        <span class="font-semibold">Formação de Formadores: O Gargalo Real</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Escalar requalificação formando multiplicadores especializados.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>O gargalo: quem treina os treinadores?</li>
-          <li>Escassez de instrutores especializados será o gap mais caro até 2030</li>
-          <li>Modelo cascata: expert → multiplicador → operador</li>
-          <li>Siemens: transferência de conhecimento de 2.5M aposentados para IA</li>
-          <li>Programa de mentoria entre early adopters e novos</li>
-          <li>Conteúdo para liderança média: o elo entre diretoria e chão de fábrica</li>
-          <li>Competências do formador: técnica + psicologia + andragogia + segurança</li>
-        </ul>
-      </div>
-    </details>
-
-    <!-- M18 -->
-    <details class="module-card bg-panel border border-line rounded-xl mb-4">
-      <summary class="p-5 flex items-center gap-3">
-        <span class="arrow text-gray-500">▶</span>
-        <span class="bg-purple-500/10 text-purple-400 text-xs font-bold px-2 py-1 rounded">M18</span>
-        <span class="font-semibold">Projeções 2027-2030 e Posicionamento</span>
-      </summary>
-      <div class="px-5 pb-5 text-sm text-gray-300 space-y-2 border-t border-line pt-4">
-        <p><strong>Objetivo:</strong> Antecipar tendências e posicionar-se estrategicamente no mercado de requalificação.</p>
-        <ul class="list-disc pl-5 space-y-1 text-gray-400">
-          <li>Humanoides em produção: Figure, Boston Dynamics, UBTECH saem de piloto para volume</li>
-          <li>Regulação HRC mais rígida: equivalentes nacionais do ISO 10218:2025</li>
-          <li>VR/AR como padrão de onboarding (argumento de 38% + segurança)</li>
-          <li>120M trabalhadores em risco de redundância (WEF)</li>
-          <li>11 em 100 impossíveis de requalificar pela velocidade</li>
-          <li>A tese: "capacitar para conviver, supervisionar e decidir em sistemas automatizados"</li>
-          <li>Posicionamento: transformação de capacidade humana, não treinamento operacional</li>
-        </ul>
-        <p class="text-gray-500 italic">Fontes: WEF, Bain, IFR projeções</p>
-      </div>
-    </details>
-
+      <a href="trilha3/" class="text-purple-400 text-sm hover:underline">Ver trilha completa →</a>
+    </div>
+    <div class="grid md:grid-cols-2 gap-3">
+      <a href="trilha3/#modulo-3-1" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-purple-500/30 transition-colors block">
+        <span class="text-purple-400 text-xs font-bold">M3.1</span>
+        <p class="font-medium mt-1">Gestão da Mudança: Framework para Robôs</p>
+      </a>
+      <a href="trilha3/#modulo-3-2" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-purple-500/30 transition-colors block">
+        <span class="text-purple-400 text-xs font-bold">M3.2</span>
+        <p class="font-medium mt-1">Métricas para Equipes Híbridas</p>
+      </a>
+      <a href="trilha3/#modulo-3-3" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-purple-500/30 transition-colors block">
+        <span class="text-purple-400 text-xs font-bold">M3.3</span>
+        <p class="font-medium mt-1">Business Case: Vendendo Requalificação</p>
+      </a>
+      <a href="trilha3/#modulo-3-4" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-purple-500/30 transition-colors block">
+        <span class="text-purple-400 text-xs font-bold">M3.4</span>
+        <p class="font-medium mt-1">Certificações e Compliance</p>
+      </a>
+      <a href="trilha3/#modulo-3-5" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-purple-500/30 transition-colors block">
+        <span class="text-purple-400 text-xs font-bold">M3.5</span>
+        <p class="font-medium mt-1">Formação de Formadores</p>
+      </a>
+      <a href="trilha3/#modulo-3-6" class="bg-dark-800 border border-dark-600 rounded-lg p-4 hover:border-purple-500/30 transition-colors block">
+        <span class="text-purple-400 text-xs font-bold">M3.6</span>
+        <p class="font-medium mt-1">Projeções 2027-2030 e Posicionamento</p>
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="py-12 text-center text-sm text-gray-500 space-y-2">
-  <p>segROBOT — <a href="https://inema.club" class="text-red-400 hover:underline">INEMA.CLUB</a></p>
+  <p>segROBOT — <a href="https://inema.club" class="text-sky-400 hover:text-sky-300">INEMA.CLUB</a></p>
   <p>Pesquisa profunda: maio 2026 · 50+ fontes acadêmicas e industriais</p>
   <p class="text-gray-600">WEF · IFR · ISO · BCG · Brookings · Amazon · Siemens · arxiv · PMC/NIH</p>
 </footer>
 
+<script>
+if (localStorage.getItem('theme') === 'light') {
+  document.documentElement.classList.remove('dark');
+}
+</script>
 </body>
 </html>
